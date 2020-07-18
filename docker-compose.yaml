@@ -1,0 +1,37 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./docker/server
+    ports:
+      - 8000:8000
+    depends_on: [
+      "db"
+    ]
+    volumes:
+      - ./server:/go/src/vgo
+    command: realize start --run
+    container_name: server
+  db:
+    build:
+      context: ./docker/db
+    restart: always
+    volumes:
+      - ./db/persistent:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: vgo
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: vgo
+    ports:
+      - "3306:3306"
+    container_name: db
+  client:
+    build:
+      context: ./docker/client
+    ports:
+      - 8080:8080
+    volumes:
+      - ./client:/usr/src/client
+    command: bash -c "yarn install && yarn serve"
+    container_name: client

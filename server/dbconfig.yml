@@ -1,0 +1,5 @@
+development:
+  dialect: mysql
+  datasource: root:root@tcp(db:3306)/vgo?parseTime=true
+  dir: migrations
+  table: migrations
