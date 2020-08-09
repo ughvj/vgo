@@ -13,11 +13,13 @@ func Init() *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:8080"},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowOrigins: []string{ "http://localhost:8080" },
+		AllowHeaders: []string{ echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept },
 	}))
 
-	e.GET("/", hello)
+	r := e.Group("/hello")
+	r.Use(middleware.JWT([]byte("secret")))
+	r.GET("", hello)
 
 	return e;
 }

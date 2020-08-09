@@ -1,0 +1,1 @@
+docker exec server sql-migrate up

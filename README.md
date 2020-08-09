@@ -1,1 +1,3 @@
 - Test app with vue + go/echo ;)
+- `curl -X POST -d 'username=user1' -d 'password=password' localhost:2434/auth`
+- `curl localhost:8000/hello -H "Authorization: Bearer <jwt>"`
